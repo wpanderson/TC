@@ -1,0 +1,65 @@
+@model IEnumerable<TriCodeTest.Models.OrderModels.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    td:nth-child(even) {
+        background-color: #f7f7f7;
+    }
+
+    td {
+        font-size: 110%;
+    }
+</style>
+
+<h2>Order History</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Order Id
+            </th>
+            <th>
+                Date & Time
+            </th>
+            <th>
+                Items
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Price
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTime)
+                </td>
+                <td>
+                    @String.Format("{0}", item.OrderMenuItems.FirstOrDefault().MenuItem.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
